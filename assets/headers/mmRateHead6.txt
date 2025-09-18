@@ -1,0 +1,1 @@
+chr	start	end	name	strand	mmRate1	mmRate2	mmRate3	mmRate4	mmRate5	mmRate6

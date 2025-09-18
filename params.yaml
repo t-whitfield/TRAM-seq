@@ -1,0 +1,52 @@
+# Locations of essential reference or input files and output.
+refpath: "${projectDir}/assets/genomes"
+sizes: "${projectDir}/assets/genomes/chromInfo.txt"
+datapath: "${projectDir}/data"
+headpath: "${projectDir}/assets/headers"
+annotpath: "${projectDir}/assets/annotations"
+outdir: "${projectDir}/results"
+
+# List reference annotations/bed files.
+references: ["canon_GRCh38.106_3utr","canon_GRCh38.106_5utr","canon_GRCh38.106_cds"]
+references_spliced: ["canon_GRCh38.106_3utr_transcripts","canon_GRCh38.106_5utr_transcripts","canon_GRCh38.106_cds_transcripts"]
+
+# List name tags for output files from reference annotations/bed files.
+reference_tags:
+  canon_GRCh38.106_3utr: 3utri
+  canon_GRCh38.106_5utr: 5utri
+  canon_GRCh38.106_cds: cdsi
+
+reference_tags_spliced:
+  canon_GRCh38.106_3utr_transcripts: 3utr
+  canon_GRCh38.106_5utr_transcripts: 5utr
+  canon_GRCh38.106_cds_transcripts: cds
+
+# All experiments to include in the analysis.
+control_experiments: ["C1", "C2", "C3"]
+dms_experiments: ["D1", "D2", "D3"]
+stress_control_experiments: ["A1", "A2", "A3"]
+stress_dms_experiments: ["AD1", "AD2", "AD3"]
+
+# Specify the pairing between DMS and control conditions.
+experiment_pairs:
+  D1: C1
+  D2: C2
+  D3: C3
+  AD1: A1
+  AD2: A2
+  AD3: A3
+
+# Chromosomes to include.
+chromosomes: [
+  "chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10",
+  "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19",
+  "chr20", "chr21", "chr22", "chrX", "chrY"
+]
+
+# Parameters supplied to bcftools.
+max_depth: 1000000
+mapping_quality: 20
+base_quality: 20
+
+# Coverage filtering parameters for estimated mismatch rates.
+coverage_threshold: 200
