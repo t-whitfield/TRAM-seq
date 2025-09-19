@@ -22,24 +22,24 @@ flowchart TD
         A4[Stress DMS BAMs<br/>AD1, AD2, AD3]
     end
     
-    subgraph "Chromosome Processing"
+    subgraph "Generate pileup profile for mismatch rates"
         B[EXTRACT_CHROMOSOME_BAM<br/>Split by chromosome]
         C[GENERATE_PILEUP<br/>Mutation detection]
         D[PROCESS_PILEUP<br/>Strand separation]
     end
     
-    subgraph "Quality Control & Normalization"
+    subgraph "Quality control & normalization to control"
         E[FILTER_COVERAGE<br/>Remove low coverage sites]
         F[NORMALIZE_RATES<br/>DMS vs Control normalization]
     end
     
-    subgraph "Genome Assembly"
+    subgraph "Harmonize filtered rates across conditions"
         G[COMBINE_CHROMOSOMES<br/>Create genome-wide tracks]
         H[FIND_COMMON_SITES<br/>Identify shared sites]
         I[SET_COMMON_SITES<br/>Apply common filter]
     end
     
-    subgraph "Statistical Analysis"
+    subgraph "Statistical analysis"
         J[COMPUTE_ELEMENT_STATS<br/>Basic regions: 3'UTR, 5'UTR, CDS]
         K[COMPUTE_ELEMENT_STATS_SPLICED<br/>Transcript-level analysis]
     end
