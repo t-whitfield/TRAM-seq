@@ -55,12 +55,12 @@ flowchart TD
     I --> J
     I --> K
     
-    style A1 fill:#ffcdd2
-    style A2 fill:#f8bbd9
-    style A3 fill:#e1bee7
-    style A4 fill:#d1c4e9
-    style J fill:#c8e6c9
-    style K fill:#c8e6c9
+    style A1 fill:#EB0C0C
+    style A2 fill:#F55F5F
+    style A3 fill:#1D05F2
+    style A4 fill:#7060F7
+    style J fill:#01913B
+    style K fill:#02702F
 ```
 
 ## Quick start
