@@ -22,7 +22,7 @@ flowchart TD
         A4[Stress DMS BAMs<br/>AD1, AD2, AD3]
     end
     
-    subgraph "Generate raw mismatch rates"
+    subgraph "Generate raw rates"
         B[EXTRACT_CHROMOSOME_BAM<br/>Split by chromosome]
         C[GENERATE_PILEUP<br/>Mutation detection]
         D[PROCESS_PILEUP<br/>Strand separation]
@@ -33,7 +33,7 @@ flowchart TD
         F[NORMALIZE_RATES<br/>DMS vs Control normalization]
     end
     
-    subgraph "Harmonize across conditions"
+    subgraph "Harmonize conditions"
         G[COMBINE_CHROMOSOMES<br/>Create genome-wide tracks]
         H[FIND_COMMON_SITES<br/>Identify shared sites]
         I[SET_COMMON_SITES<br/>Apply common filter]
