@@ -66,8 +66,8 @@ flowchart TD
 ## Quick start
 ### Clone the repository
 ```
-git clone https://github.com/yourusername/dms-mapseq-pipeline.git
-cd dms-mapseq-pipeline
+git clone https://github.com/whitehead/TRAM-seq.git
+cd TRAM-seq
 ```
 
 ### Set up reference genome files
