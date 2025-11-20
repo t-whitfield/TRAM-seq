@@ -2,9 +2,26 @@
 refpath: "${projectDir}/assets/genomes"
 sizes: "${projectDir}/assets/genomes/chromInfo.txt"
 datapath: "${projectDir}/data"
+fastqpath: "${projectDir}/data/fastq"
 headpath: "${projectDir}/assets/headers"
 annotpath: "${projectDir}/assets/annotations"
 outdir: "${projectDir}/results"
+
+# Set the location of the STAR index and bbmap suite.
+star_index: "/nfs/genomes/human_hg38_dec13_no_random/STAR/GRCh38.104.canonical_overhang_150"
+bbmappath: "${projectDir}/bbmap"
+
+# Adapter trimming parameters (for cutadapt).
+adapter_r1: "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA"
+adapter_r2: "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
+trim_5p_r1: 0
+trim_5p_r2: 10
+quality_cutoff: 20
+min_length: 10
+
+# Deduplication parameters (for clumpify from bbmap).
+dedup_subs: 1
+dedup_memory: "20g"
 
 # List reference annotations/bed files.
 references: ["canon_GRCh38.106_3utr","canon_GRCh38.106_5utr","canon_GRCh38.106_cds"]
@@ -22,25 +39,25 @@ reference_tags_spliced:
   canon_GRCh38.106_cds_transcripts: cds
 
 # All experiments to include in the analysis.
-control_experiments: ["C1", "C2", "C3"]
-dms_experiments: ["D1", "D2", "D3"]
-stress_control_experiments: ["A1", "A2", "A3"]
-stress_dms_experiments: ["AD1", "AD2", "AD3"]
+control_experiments: ["C1s", "C2s", "C3s"]
+dms_experiments: ["D1s", "D2s", "D3s"]
+stress_control_experiments: ["A1s", "A2s", "A3s"]
+stress_dms_experiments: ["AD1s", "AD2s", "AD3s"]
 
 # Specify the pairing between DMS and control conditions.
 experiment_pairs:
-  D1: C1
-  D2: C2
-  D3: C3
-  AD1: A1
-  AD2: A2
-  AD3: A3
+  D1s: C1s
+  D2s: C2s
+  D3s: C3s
+  AD1s: A1s
+  AD2s: A2s
+  AD3s: A3s
 
 # Chromosomes to include.
 chromosomes: [
   "chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10",
   "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19",
-  "chr20", "chr21", "chr22", "chrX", "chrY"
+  "chr20", "chr21", "chr22", "chrX"
 ]
 
 # Parameters supplied to bcftools.
@@ -49,4 +66,4 @@ mapping_quality: 20
 base_quality: 20
 
 # Coverage filtering parameters for estimated mismatch rates.
-coverage_threshold: 200
+coverage_threshold: 100

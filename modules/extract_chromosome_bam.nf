@@ -4,7 +4,7 @@ process EXTRACT_CHROMOSOME_BAM {
     publishDir "${params.outdir}/bam_files", mode: 'copy', pattern: "*.{bam,bai}"
     
     input:
-    tuple val(experiment), val(chromosome)
+    tuple val(experiment), val(chromosome), path(bam_file), path(bai_file)
     
     output:
     tuple val(experiment), val(chromosome), path("${experiment}_${chromosome}.bam"), path("${experiment}_${chromosome}.bai"), emit: bam_files
@@ -13,16 +13,16 @@ process EXTRACT_CHROMOSOME_BAM {
     """
     set -euo pipefail
     echo "Processing ${experiment} chromosome ${chromosome}"
-    echo "Input BAM: ${params.datapath}/${experiment}.bam"
+    echo "Input BAM: ${bam_file}"
     
     # Check if input BAM file exists
-    if [[ ! -f "${params.datapath}/${experiment}.bam" ]]; then
-        echo "ERROR: Input BAM file not found: ${params.datapath}/${experiment}.bam"
+    if [[ ! -f "${bam_file}" ]]; then
+        echo "ERROR: Input BAM file not found: ${bam_file}"
         exit 1
     fi
     
     # Extract chromosome-specific bam file (output to work directory)
-    samtools view "${params.datapath}/${experiment}.bam" "${chromosome}" -b > "${experiment}_${chromosome}.bam"
+    samtools view "${bam_file}" "${chromosome}" -b > "${experiment}_${chromosome}.bam"
     
     # Check if extraction was successful
     if [[ ! -s "${experiment}_${chromosome}.bam" ]]; then

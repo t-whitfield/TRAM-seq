@@ -1,3 +1,4 @@
+include { MAP_READS } from '../modules/map_reads'
 include { EXTRACT_CHROMOSOME_BAM } from '../modules/extract_chromosome_bam'
 include { GENERATE_PILEUP } from '../modules/generate_pileup'
 include { PROCESS_PILEUP } from '../modules/process_pileup'
@@ -18,13 +19,19 @@ workflow TRAM_SEQ {
         params.stress_control_experiments + 
         params.stress_dms_experiments
     )
-    
+
+    // Map reads from FASTQ to BAM files
+    MAP_READS(all_experiments)
+
     // Create channel for chromosomes
     chromosomes_ch = Channel.from(params.chromosomes)
     
-    // Create experiment-chromosome combinations
-    experiment_chromosome_ch = all_experiments
+    // Create experiment-chromosome combinations using mapped BAM files
+     experiment_chromosome_ch = MAP_READS.out.bam_files
         .combine(chromosomes_ch)
+        .map { experiment, bam, bai, chromosome ->
+            [experiment, chromosome, bam, bai]
+        }
     
     // Extract chromosome-specific BAM files
     EXTRACT_CHROMOSOME_BAM(experiment_chromosome_ch)
@@ -35,7 +42,7 @@ workflow TRAM_SEQ {
     // Process pileup files
     PROCESS_PILEUP(GENERATE_PILEUP.out.pileup_files)
 
-    // Combine pos and neg pileup files for each experiment-chromosome combination
+    // Combine pos and neg pileup files for experiment-chromosome combinations
     pileup_combined_ch = PROCESS_PILEUP.out.pos_pileup
         .join(PROCESS_PILEUP.out.neg_pileup, by: [0, 1])
         .map { experiment, chromosome, pos_file, neg_file ->

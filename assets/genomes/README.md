@@ -5,4 +5,4 @@ This pipeline requires individual chromosome FASTA files for hg38.
 ## Quick setup:
 ```bash
 # Run the provided script to download individual chromosomes
-bash assets/genomes/download_chromosomes.sh
+bash assets/genomes/downloadChromosomes.sh

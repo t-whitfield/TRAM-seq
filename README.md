@@ -22,24 +22,24 @@ flowchart TD
         A4[Stress DMS BAMs<br/>AD1, AD2, AD3]
     end
     
-    subgraph "Generate raw rates"
+    subgraph "Chromosome Processing"
         B[EXTRACT_CHROMOSOME_BAM<br/>Split by chromosome]
         C[GENERATE_PILEUP<br/>Mutation detection]
         D[PROCESS_PILEUP<br/>Strand separation]
     end
     
-    subgraph "QC & normalization"
+    subgraph "Quality Control & Normalization"
         E[FILTER_COVERAGE<br/>Remove low coverage sites]
         F[NORMALIZE_RATES<br/>DMS vs Control normalization]
     end
     
-    subgraph "Harmonize conditions"
+    subgraph "Genome Assembly"
         G[COMBINE_CHROMOSOMES<br/>Create genome-wide tracks]
         H[FIND_COMMON_SITES<br/>Identify shared sites]
         I[SET_COMMON_SITES<br/>Apply common filter]
     end
     
-    subgraph "Statistical analysis"
+    subgraph "Statistical Analysis"
         J[COMPUTE_ELEMENT_STATS<br/>Basic regions: 3'UTR, 5'UTR, CDS]
         K[COMPUTE_ELEMENT_STATS_SPLICED<br/>Transcript-level analysis]
     end
@@ -55,27 +55,43 @@ flowchart TD
     I --> J
     I --> K
     
-    style A1 fill:#EB0C0C
-    style A2 fill:#F55F5F
-    style A3 fill:#1D05F2
-    style A4 fill:#7060F7
-    style J fill:#01913B
-    style K fill:#02702F
+    style A1 fill:#ffcdd2
+    style A2 fill:#f8bbd9
+    style A3 fill:#e1bee7
+    style A4 fill:#d1c4e9
+    style J fill:#c8e6c9
+    style K fill:#c8e6c9
 ```
 
 ## Quick start
-### Clone the repository
+### Clone the repository.
 ```
-git clone https://github.com/whitehead/TRAM-seq.git
-cd TRAM-seq
+git clone https://github.com/yourusername/dms-mapseq-pipeline.git
+cd dms-mapseq-pipeline
 ```
 
-### Set up reference genome files
+### Set up reference genome files.
 ```
 bash assets/genomes/download_chromosomes.sh
 ```
 
-### Run the pipeline
+### Prepare ENSEMBL gene annotations.
+```
+bash assets/gtf/prepareGTF.sh
+```
+
+### Set up STAR index for mapping. This command may need to be
+### modified to optimize for read-length used in sequencing library.
+```
+bash assets/STARindex/buildIndex.sh
+```
+
+### Install the BBMap suite of tools.
+```
+bash bbmap/downloadBBMap.sh
+```
+
+### Run the pipeline.
 ```
 nextflow run main.nf -params-file params.yaml
 ```

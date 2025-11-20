@@ -317,8 +317,8 @@ process COMPUTE_ELEMENT_STATS_SPLICED {
     """
     
     stub:
-    """
     def reference_tag = params.reference_tags[reference]
+    """
     touch coverage_${reference_tag}_AllGenes.txt
     touch mmRate_${reference_tag}_AllGenes.txt
     touch processedExperiments_${reference_tag}.csv

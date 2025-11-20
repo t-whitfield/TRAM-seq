@@ -255,8 +255,8 @@ process COMPUTE_ELEMENT_STATS {
     """
     
     stub:
-    """
     def reference_tag = params.reference_tags[reference]
+    """
     touch coverage_${reference_tag}_All.txt
     touch mmRate_${reference_tag}_All.txt
     touch processedExperiments_${reference_tag}.csv
