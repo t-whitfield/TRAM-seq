@@ -49,7 +49,7 @@ process GENERATE_PILEUP {
     # Convert to pileup format
     echo "Converting to pileup format..."
     bcftools query \\
-        -f '%CHROM\\t%POS\\t%REF\\t%TYPE\\t%ALT{0}\\t%IMF\\t%DP\\t%AD\\n' \\
+        -f '%CHROM\\t%POS\\t%REF\\t%TYPE\\t%ALT\\t%IMF\\t%DP\\t%AD\\n' \\
         "${experiment}_${chromosome}_norm.vcf" | \\
         awk 'BEGIN{OFS="\\t"} {print \$1"_"\$2,\$1,\$2,\$3,\$4,\$5,\$6,\$7,\$8}' | \\
         sed 's/<\\*>/R/g' > "${experiment}_${chromosome}_norm.pileupt"
